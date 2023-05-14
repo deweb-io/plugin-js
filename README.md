@@ -1,14 +1,15 @@
 ![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
-# Link Tool
+# plugin Tool
 
-Link Block for the [Editor.js](https://codex.so/editor).
+plugin Block for the [Editor.js](https://codex.so/editor).
 
 ![](assets/gif/demo.gif)
 
 ## Features
 
 Allows adding link previews to your articles.
+using pre defined external domain endpoints which are recognized onPaste.
 
 **Note:** this Tool requires server-side implementation for link data fetching. See [backend response format](#server-format) for more details.
 
@@ -19,13 +20,13 @@ Allows adding link previews to your articles.
 Get the package
 
 ```shell
-npm i --save-dev @editorjs/link
+npm i --save-dev @dewebio/plugin-js
 ```
 
 Include module at your application
 
 ```javascript
-const LinkTool = require('@editorjs/link');
+const LinkTool = require('@dewebio/plugin-js');
 ```
 
 ### Download to your project's source dir
@@ -33,13 +34,6 @@ const LinkTool = require('@editorjs/link');
 1. Download folder `dist` from repository
 2. Add `dist/bundle.js` file to your page.
 
-### Load from CDN
-
-You can load the specific version of a package from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/link).
-
-`https://cdn.jsdelivr.net/npm/@editorjs/link@2.0.0`
-
-Then require this script on page with Editor.js through the `<script src=""></script>` tag.
 
 ## Usage
 
@@ -51,11 +45,12 @@ const editor = EditorJS({
 
   tools: {
     ...
-    linkTool: {
-      class: LinkTool,
+    plugin: {
+      class: PluginTool,
       config: {
-        endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching
-      }
+                endpoint: linkToolEndpoint,
+                pluginEndpoints: pluginsValidEndpoints
+            }
     }
   },
 
@@ -67,9 +62,10 @@ const editor = EditorJS({
 
 Link Tool supports these configuration parameters:
 
-| Field    | Type        | Description                                    |
-| ---------|-------------|------------------------------------------------|
-| endpoint | `string`    | **Required:** the endpoint for link data fetching. |
+| Field           | Type        | Description                                        |
+| ----------------|-------------|----------------------------------------------------|
+| endpoint        | `string`    | **Required:** the endpoint for link data fetching. |
+| pluginEndpoints | `string`    | **optional:** string array of plugin endpoints.    |
 
 ## Output data
 
